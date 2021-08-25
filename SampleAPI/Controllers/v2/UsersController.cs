@@ -2,36 +2,38 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using SampleAPI.Models;
 
-namespace SampleAPI.Controllers.v1
+namespace SampleAPI.Controllers.v2
 {
     [ApiController]
-    [Route("api/users")]
-    [ApiVersion("1.0", Deprecated = true)]
-    public class UsersController: ControllerBase
+    // [Route("api/v{version:apiVersion}/Users")]
+    [Route("api/Users")]
+    [ApiVersion("2.0")]
+    public class UsersController:ControllerBase
     {
         [HttpGet()]
         public IActionResult AllUsers()
         {
-            List<UserV1> users = new List<UserV1>()
+            List<UserV2> users = new List<UserV2>()
             {
-                new UserV1
+                new UserV2
                 {
-                    Id= 1,
+                    Id= System.Guid.NewGuid(),
                     Name = "Adrian"
                 },
-                new UserV1
+                new UserV2
                 {
-                    Id = 2,
+                    Id= System.Guid.NewGuid(),
                     Name="Test"
                 },
-                new UserV1
+                new UserV2
                 {
-                    Id = 3,
+                    Id= System.Guid.NewGuid(),
                     Name="Test2"
                 }
             };
 
             return Ok(users);
         }
+        
     }
 }

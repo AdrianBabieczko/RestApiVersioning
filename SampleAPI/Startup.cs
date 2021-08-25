@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,6 +41,12 @@ namespace SampleAPI
                 
                 //this is goint to return all aviable api versions
                 opt.ReportApiVersions = true;
+
+                //Add media type versioning
+                opt.ApiVersionReader = ApiVersionReader.Combine(
+                    new MediaTypeApiVersionReader("x-api-version"),
+                    new HeaderApiVersionReader("x-api-version")
+                );
             });
         }
 
